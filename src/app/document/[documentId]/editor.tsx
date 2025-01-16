@@ -19,11 +19,13 @@ import Link from "@tiptap/extension-link";
 import TextAlign from "@tiptap/extension-text-align";
 import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
+import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 
 import { useEditorStore } from "@/store/use-editor-store";
 import { Ruler } from "./ruler";
 
 export function Editor() {
+  const liveblocks = useLiveblocksExtension();
   const { setEditor } = useEditorStore();
 
   const editor = useEditor({
@@ -60,6 +62,7 @@ export function Editor() {
       },
     },
     extensions: [
+      liveblocks,
       LineHeightExtension,
       FontSizeExtension,
       TextAlign.configure({
