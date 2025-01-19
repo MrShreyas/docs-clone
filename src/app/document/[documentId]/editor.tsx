@@ -20,12 +20,27 @@ import TextAlign from "@tiptap/extension-text-align";
 import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
 import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
+import { useStorage } from "@liveblocks/react";
 
 import { useEditorStore } from "@/store/use-editor-store";
 import { Ruler } from "./ruler";
+import { Threads } from "./threads";
 
-export function Editor() {
-  const liveblocks = useLiveblocksExtension();
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
+
+interface EditorProps {
+  initialContent?: string | undefined;
+}
+
+export function Editor({ initialContent }: EditorProps) {
+  const leftmargin =
+    useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
+  const rightmargin =
+    useStorage((root) => root.rightMargin) ?? RIGHT_MARGIN_DEFAULT;
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental: true,
+  });
   const { setEditor } = useEditorStore();
 
   const editor = useEditor({
@@ -56,7 +71,7 @@ export function Editor() {
     },
     editorProps: {
       attributes: {
-        style: "padding-left: 56px; padding-right: 56px;",
+        style: `padding-left: ${leftmargin}px; padding-right: ${rightmargin}px;`,
         class:
           "focus:outline-none print:border-0 bg-white border border-[#c7c7c7] flex flex-col min-h-[1054px] w-[816px] pt-10 pr-14 pb-10 cursor-text ",
       },
@@ -78,7 +93,9 @@ export function Editor() {
       TextStyle,
       FontFamily,
       Underline,
-      StarterKit,
+      StarterKit.configure({
+        history: false,
+      }),
       ImageResize,
       Image,
       Table,
@@ -97,6 +114,7 @@ export function Editor() {
       <Ruler />
       <div className=" min-w-max flex justify-center w-[816px] py-4 mx-auto print:py-0 print:w-full print:min-w-0 ">
         <EditorContent editor={editor} />
+        <Threads editor={editor} />
       </div>
     </div>
   );

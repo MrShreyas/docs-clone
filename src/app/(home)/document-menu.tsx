@@ -38,8 +38,8 @@ export const DocumentMenu = ({
       <DropdownMenuContent>
         <RenameDialog documentId={documentId} initialTitle={title}>
           <DropdownMenuItem
-            onSelect={(e) => e.preventDefault()}
             onClick={(e) => e.stopPropagation()}
+            onSelect={(e) => e.preventDefault()}
           >
             <FilePenIcon className="size-4 mr-2" />
             Rename

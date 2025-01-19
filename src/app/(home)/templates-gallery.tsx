@@ -52,7 +52,9 @@ export default function TemplatesGallery() {
                 >
                   <button
                     disabled={isCreating}
-                    onClick={() => onTemplateClick(template.label, "")} // Todo: add proper initial content
+                    onClick={() =>
+                      onTemplateClick(template.label, template.initialConternt)
+                    }
                     style={{
                       backgroundImage: `url(${template.imageUrl})`,
                       backgroundSize: "cover",
