@@ -36,7 +36,13 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
       <TableCell className="text-muted-foreground hidden md:table-cell ">
         {format(new Date(document._creationTime), "MMM dd, yyyy")}
       </TableCell>
-      <TableCell className=" flex justify-end ">
+      <TableCell
+        className=" flex justify-end "
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+      >
         <DocumentMenu
           documentId={document._id}
           title={document.title}

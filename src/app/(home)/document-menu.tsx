@@ -29,7 +29,7 @@ export const DocumentMenu = ({
   onNewTab,
 }: DocumentMenuProps) => {
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="rounded-full  ">
           <MoreVertical className="size-4" />
