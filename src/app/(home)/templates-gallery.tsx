@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Plus } from "lucide-react";
+import { CreateTemplateDialog } from "@/components/createtemplate-dialogue";
 
 export default function TemplatesGallery() {
   const router = useRouter();
@@ -36,7 +38,15 @@ export default function TemplatesGallery() {
   return (
     <div className="bg-[#F1F3F4]">
       <div className=" max-w-3xl mx-auto px-6 py-6 flex flex-col gap-y-4 ">
-        <h3 className=" font-medium ">Start New Document</h3>
+        <div className="flex gap-2">
+          <h3 className=" font-medium ">Start New Document</h3>
+          <CreateTemplateDialog>
+            <div className="flex gap-1 hover:bg-slate-200 hover:cursor-pointer rounded-md px-2 ">
+              <Plus />
+              <h3 className=" font-medium ">Create New Template</h3>
+            </div>
+          </CreateTemplateDialog>
+        </div>
         <Carousel>
           <CarouselContent className="-ml-4 ">
             {templates.map((template) => (
